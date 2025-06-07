@@ -1,5 +1,7 @@
 import os
+import hashlib
 import pandas as pd
+
 
 def save_normalised(outcode, df, location):
     """
@@ -24,7 +26,6 @@ def read_normalised(outcode, location):
     return pd.read_csv(f"{location}/{outcode}.csv")
 
 
-
 def read_all_normalised(location):
     """
     read all the normalised files into a single DataFrame
@@ -36,3 +37,17 @@ def read_all_normalised(location):
             dfs.append(read_normalised(outcode, location))
 
     return pd.concat(dfs, ignore_index=True)
+
+
+def deterministic_row_id(row):
+    pieces = [str(row.name)] + [str(v) for v in row.values]
+    text = "|".join(pieces)  # delimiter can be anything unambiguous
+    return hashlib.md5(text.encode("utf-8")).hexdigest()
+
+
+def connected_components_to_lookup(components):
+    lookup = {}
+    for component in components:
+        first_id = next(iter(component))  # get the first id in the component
+        lookup[first_id] = list(component)  # convert the set to a list
+    return lookup

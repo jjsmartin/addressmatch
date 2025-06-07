@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "address-deduplication"
+version = "0.1.0"
+dependencies = [
+  "click>=8.0",
+  # …
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.scripts]
+addressmatch = "addressmatch.cli:cli"
