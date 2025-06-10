@@ -1,6 +1,6 @@
 import re
 import pandas as pd
-from typing import Tuple
+
 
 POSTCODE_REGEX = re.compile(
     r'\b((?:GIR\s?0AA|[A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2}))\b',

@@ -1,17 +1,29 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
+requires = ["setuptools>=61", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "address-deduplication"
+name = "addressmatch"
 version = "0.1.0"
+description = "Prototype address deduplication tool"
+readme = "README.md"
+requires-python = ">=3.9"
+
+# Direct runtime requirements only
 dependencies = [
-  "click>=8.0",
-  # …
+  "address-deduplication>=0.1,<0.2",
+  "pandas>=2.2,<3",
+  "recordlinkage>=0.16,<0.17",
+  "rapidfuzz>=3.0,<4",
+  "typer>=0.16,<0.17",
+  "tomli>=2.0; python_version<'3.11'",
+]
+
+[project.optional-dependencies]
+dev = [
+  "ipykernel",
+  "matplotlib",
 ]
 
 [tool.setuptools.packages.find]
 where = ["src"]
-
-[project.scripts]
-addressmatch = "addressmatch.cli:cli"
